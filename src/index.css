@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { @apply bg-gray-50 text-gray-900; }
+
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-medium text-sm transition active:scale-[0.98]; }
+.btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm; }
+.btn-secondary { @apply btn bg-white border border-gray-200 text-gray-700 hover:bg-gray-50; }
+.btn-danger { @apply btn bg-red-50 text-red-600 hover:bg-red-100; }
+.card { @apply bg-white rounded-2xl border border-gray-100 shadow-sm p-5; }
+.input { @apply w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent; }
+.label { @apply block text-xs font-medium text-gray-500 mb-1; }
