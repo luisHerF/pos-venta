@@ -15,6 +15,29 @@ Ya está creada y lista para usarse:
 - Vistas de métricas: `v_sales_daily`, `v_sales_weekly`, `v_sales_monthly`, `v_top_products`, `v_low_stock`
 - RLS activado: cada usuario solo ve datos de su propio negocio (`business_id`)
 
+## Roles de usuario
+- **Super administrador**: crea tiendas nuevas y genera el código de invitación de administrador para cada una. No opera ventas ni inventario directamente.
+- **Administrador** (por tienda): controla ventas, inventario, categorías, reportes/cortes, usuarios y configuración de su tienda.
+- **Vendedor**: solo Punto de venta y Panel.
+- **Inventarista**: solo Inventario, Categorías y Panel.
+
+### Cómo se une la gente a una tienda
+Cada tienda tiene 3 códigos de invitación (formato `idDeTienda:rol`), visibles para el admin de esa tienda en "Usuarios", y para el super admin en su panel. La persona nueva los pega en el campo "Código de invitación" al registrarse.
+
+### Cómo se crea el primer super administrador
+No existe un botón para esto (por seguridad). El primer super admin se activa manualmente:
+1. Regístrate normalmente en la app, sin código de invitación (tu cuenta quedará "pendiente de asignación").
+2. Pide que te promuevan a super administrador actualizando tu perfil en la base de datos (`update profiles set role = 'super_admin' where id = 'tu-user-id'`).
+
+## Desplegarlo en Cloudflare Pages (para conectarlo a tu dominio)
+1. Sube este proyecto a GitHub (ver sección anterior).
+2. Entra a dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git.
+3. Elige tu repositorio.
+4. Framework preset: **Vite**. Build command: `npm run build`. Build output directory: `dist`.
+5. En "Environment variables" agrega `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` (están en `.env.example`).
+6. Guarda y despliega. Cloudflare Pages queda corriendo en automático: cada vez que subas cambios a GitHub, se vuelve a construir y publicar solo.
+7. Para usar tu propio dominio: dentro del proyecto de Pages, pestaña "Custom domains" → "Set up a custom domain" → escribe tu dominio (debe estar ya en tu cuenta de Cloudflare) → Cloudflare configura el DNS automáticamente.
+
 ## Cómo correrlo localmente
 ```bash
 npm install
